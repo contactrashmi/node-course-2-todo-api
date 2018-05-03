@@ -40,12 +40,11 @@ app.post('/markAttendance', (req, res) => {
  console.log(req.body);
  var employee = new Employee({
    eventID: req.body.eventID,
-   employeeID: req.body.employeeID,
-   employeeName: req.body.employeeName
+   employeeID: req.body.employeeID
  })
 
  employee.save().then((doc) => {
-   res.send(doc)
+   res.send({statusCode: 200, message: 'Attendance Marked', employeeID: req.body.employeeID})
  }, (err) => {
    res.status(400).send(err)
  })
