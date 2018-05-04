@@ -1,11 +1,18 @@
 var express = require('express')
 var bodyParser = require('body-parser')
+//var hbs = require('hbs')
 
 var{mongoose} = require('./db/mongoose')
 var{Event} = require('./models/events')
 var{Employee} = require('./models/employee')
 
 var app = express()
+
+
+//app.set('views', (__dirname + '/views'));
+//app.set('view engine', 'hbs')
+//hbs.registerPartials(__dirname + '/views/partials')
+
 var port = process.env.PORT || 3000
 
 app.use(bodyParser.json())
@@ -17,6 +24,7 @@ app.post('/postEvent', (req, res) => {
    eventID: req.body.eventID,
    eventName: req.body.eventName,
    eventLocation: req.body.eventLocation,
+   eventSchedule: req.body.eventSchedule
  })
 
  event.save().then((doc) => {
@@ -49,6 +57,10 @@ app.post('/markAttendance', (req, res) => {
    res.status(400).send(err)
  })
 })
+
+// app.get('/about', (req, res) => {
+//   res.render('about.hbs')
+// })
 
 app.listen(port, () => {
  console.log(`Server is up and running ${port}`);

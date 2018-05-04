@@ -15,6 +15,9 @@ var Event = mongoose.model('Events', {
     type: String,
     trim: true, //remove any leading or trailing spaces
     default: 'Chandigarh'
+  },
+  eventSchedule: {
+    type: Date
   }
 })
 
