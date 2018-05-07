@@ -7,6 +7,7 @@ var{Event} = require('./models/events')
 var{Employee} = require('./models/employee')
 
 var app = express()
+//added
 
 
 //app.set('views', (__dirname + '/views'));
