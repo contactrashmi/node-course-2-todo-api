@@ -1,23 +1,58 @@
-var express = require('express')
+const path = require('path')
+const http = require('http')
+const express = require('express')
+const socketIO = require('socket.io')
+
 var bodyParser = require('body-parser')
-//var hbs = require('hbs')
 
 var{mongoose} = require('./db/mongoose')
 var{Event} = require('./models/events')
 var{Employee} = require('./models/employee')
 
-var app = express()
-//added
-
-
-//app.set('views', (__dirname + '/views'));
-//app.set('view engine', 'hbs')
-//hbs.registerPartials(__dirname + '/views/partials')
+const publicPath = path.join(__dirname, '/public')
 
 var port = process.env.PORT || 3000
 
+var app = express()
+var server = http.createServer(app)
+var io = socketIO(server)
+
+
+app.use(express.static(publicPath))
 app.use(bodyParser.json())
 
+
+io.on('connection', (socket) => {
+  console.log('Connected to client');
+
+  socket.on('addEvent', (createEvent, callback) => {
+    console.log('Event added by client:', createEvent);
+
+    var event = new Event({
+        eventID: 10,
+        eventName: createEvent.eventName,
+        eventLocation: createEvent.eventLocation,
+        eventSchedule: createEvent.eventSchedule
+      })
+
+       console.log(event);
+
+       event.save().then((doc) => {
+         console.log(doc);
+       callback(doc)
+     }, (err) => {
+       callback({
+         status: 400,
+         errorMessage: err
+       })
+     })
+
+  })
+
+  socket.on('disconnect', () => {
+    console.log('Disconneted from client');
+  })
+})
 //to create new todos
 app.post('/postEvent', (req, res) => {
  console.log(req.body);
@@ -63,6 +98,6 @@ app.post('/markAttendance', (req, res) => {
 //   res.render('about.hbs')
 // })
 
-app.listen(port, () => {
+server.listen(port, () => {
  console.log(`Server is up and running ${port}`);
 })
