@@ -25,6 +25,19 @@ app.use(bodyParser.json())
 io.on('connection', (socket) => {
   console.log('Connected to client');
 
+//Fetching data from Event Table
+  socket.on('loadEventTable',(callback) => {
+    console.log('Fetching data from Event Table');
+    Event.find().then((events) => {
+      callback(events)
+    })
+   }, (err) => {
+    callback({
+      status: 400,
+      errorMessage: err
+    })
+  })
+
   socket.on('addEvent', (createEvent, callback) => {
     console.log('Event added by client:', createEvent);
 

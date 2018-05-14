@@ -1,0 +1,59 @@
+
+   body{
+    background-color: #fff;
+   } 
+    /* Set gray background color and 100% height */
+    ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+ h1{
+  color: #e31837;
+ }  
+ h2{
+  color: #fff; font-size:3rem; font-weight: bold; margin:0; padding: 0;
+ }  
+.headtext{text-align: center; }
+/*******login*****/
+.loginbtn
+{
+  background-color: #e31837;
+  color: white;
+}
+
+.form_bg {
+    background-color:#eee;
+    color:#666;
+    padding-top:10px;
+    padding-left:50px;
+    padding-right:50px;
+    border-radius:10px;
+    position: absolute;
+    border:1px solid #fff;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 500px;
+    height: 250px;
+}
+
+/******End Login*********/
+.addbtn{ 
+  position: fixed;
+  bottom: 20px;
+  right: 0px;
+  width: 80px;
+  z-index: 100;
+}
+.add{background-color: #00aa8d; color: #fff;}
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+  outline: none;
+}
