@@ -5,9 +5,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/datetimepicker.css">
   <link rel="stylesheet" href="css/style.css">
-  
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/libs/jquery-3.3.1.min.js"></script>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/moment-with-locales.js"></script>
+  <script src="js/datetimepicker.js"></script>
+  <script src="js/mindmup-editabletable.js"></script>
+  <script src="js/editable-table.js"></script>
+  <script src="/js/libs/mustache.js"></script>
+
 </head>
 <body>
 
@@ -39,19 +51,18 @@
 
                         </tr>
                     </thead>
-                   <script id="table-template" type="text/template">
-                      <tbody>
-                      <tr class= "panel">
-                            <td><a href="#">{{eventID}}</a></td>
-                            <td>{{eventName}}</td>
-                            <td>{{eventLocation}}</td>
-                            <td>{{eventSchedule}}</td>
-                      </tr>
-                            </tbody>
-                          </script>
-
-
-                   <!-- <tbody>
+                    <script id="table-template" type="text/template">
+                       <tbody>
+                       <tr class= "panel">
+                             <td><a href="#">{{eventID}}</a></td>
+                             <td>{{eventName}}</td>
+                             <td>{{eventLocation}}</td>
+                             <td>{{eventSchedule}}</td>
+                       </tr>
+                             </tbody>
+                           </script>
+                    <!--
+                    <tbody>
                         <tr class= "panel">
                             <td><a href="#">1254</a></td>
                             <td>Technical Sessions</td>
@@ -80,7 +91,7 @@
         </div>
     </div>
 </div>
-<form id="addEvent-form">          <!-- Modal -->
+  <form id = "addEvent-form">      <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog"style="width:90%; margin-top:10%;">
 
@@ -94,36 +105,42 @@
             <!-- Basic Table -->
             <div class="row clearfix">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
-                        <div class="body table-responsive">
+                        <div class="body table-responsive" style="overflow-x:initial">
                             <table id="mainTable" class="table table-bordered">
                                 <thead>
-
                                     <tr>
-                                        <th>Event ID</th>
+
                                         <th>Event Name</th>
                                         <th>Event Location</th>
                                         <th>Event Schedule</th>
+
                                     </tr>
                                 </thead>
+
                                 <tbody>
                                     <tr>
-
-                                        <td id="eventID"></td>
-                                        <td id="eventName"></th>
-                                        <td id="eventLocation"></td>
-                                        <td id="eventSchedule"></td>
-
+                                       <td ><input name="eventName"type='text' class="form-control" placeholder="Event Name"></td>
+                                        <td><input name="eventLocation" type='text' class="form-control" placeholder="Event Location"></td>
+                                        <th>
+                                                   <!-- <h3>Disable past dates </h3> -->
+                                              <div class='input-group date' id='dp2'>
+                                                  <input name="eventSchedule" type='text' class="form-control">
+                                                  <span class="input-group-addon">
+                                                      <span class="glyphicon glyphicon-calendar"></span>
+                                                  </span>
+                                              </div>
+                                        </th>
                                     </tr>
+
                                 </tbody>
+
                             </table>
                         </div>
-                        <button>Add Event</button>
-                        <!--<a href="#"><button type="button" class="btn loginbtn" style="width:20%; margin-left:38%;">Submit
-                      <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
-                    </button></a> -->
+                        <button class="btn loginbtn" style="width:20%; margin-left:38%;">Add Event</button>
+                        <!--<a href="#"><button type="button" class="btn loginbtn" style="width:20%; margin-left:38%;">Submit</button></a>-->
+
 
             </div>
-            <!-- #END# Basic Table -->
           </div>
          </div>
 <!-- <div class="modal-footer">
@@ -133,9 +150,15 @@
     </div>
   </div>
   </form>
-</div>
 
+  </div>
+
+
+<script src="/js/addEvent.js"></script>
 <script>
+
+
+
 function myFunction() {
     var checkBox = document.getElementById("myCheck");
     var text = document.getElementById("text");
@@ -145,7 +168,6 @@ function myFunction() {
        text.style.display = "none";
     }
 }
-
 $(function() {
   //default intialize
   $('#dp0').datetimepicker();
@@ -164,15 +186,6 @@ $(function() {
   });
 });
 </script>
-<script src="/socket.io/socket.io.js"></script>
-<script src="/js/libs/jquery-3.3.1.min.js"></script>
-<script src="/js/libs/mustache.js"></script>
-<script src="/js/addEvent.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/moment-with-locales.js"></script>
-<script src="js/datetimepicker.js"></script>
-<script src="js/mindmup-editabletable.js"></script>
-<script src="js/editable-table.js"></script>
 
 </body>
 </html>

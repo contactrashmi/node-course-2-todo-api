@@ -41,25 +41,35 @@ io.on('connection', (socket) => {
   socket.on('addEvent', (createEvent, callback) => {
     console.log('Event added by client:', createEvent);
 
-    var event = new Event({
-        eventID: 10,
-        eventName: createEvent.eventName,
-        eventLocation: createEvent.eventLocation,
-        eventSchedule: createEvent.eventSchedule
-      })
+  var localEvetID
 
-       console.log(event);
+  Event.count(function (err, count) {
+      if (!err && count !== 0) {
+        Event.find().sort({eventID:-1}).limit(1).then((events) => {
 
-       event.save().then((doc) => {
-         console.log(doc);
-       callback(doc)
-     }, (err) => {
-       callback({
-         status: 400,
-         errorMessage: err
-       })
-     })
+          localEvetID = events[0].eventID + 1
 
+          addEventInDB(createEvent, localEvetID, (message) => {
+            callback(message)
+          })
+
+        },  (err) => {
+          //console.log(err)
+          localEvetID = 1
+        })
+      } else {
+
+        addEventInDB(createEvent, 1, (message) => (
+          callback(message)
+        ))
+      }
+  });
+
+
+
+  /*
+
+  */
   })
 
   socket.on('disconnect', () => {
@@ -110,6 +120,25 @@ app.post('/markAttendance', (req, res) => {
 // app.get('/about', (req, res) => {
 //   res.render('about.hbs')
 // })
+
+var addEventInDB = ((createEvent, localEvetID, callback) => {
+  var event = new Event({
+      eventID: localEvetID,
+      eventName: createEvent.eventName,
+      eventLocation: createEvent.eventLocation,
+      eventSchedule: createEvent.eventSchedule
+    })
+
+     event.save().then((doc) => {
+       console.log(doc);
+     callback(doc)
+   }, (err) => {
+     callback({
+       status: 400,
+       errorMessage: err
+     })
+   })
+})
 
 server.listen(port, () => {
  console.log(`Server is up and running ${port}`);

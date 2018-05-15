@@ -40,7 +40,6 @@ socket.on('disconnect', function() {
 
 jQuery('#addEvent-form').on('submit', function(e) {
   e.preventDefault()
-
   socket.emit('addEvent', {
     eventName: jQuery('[name=eventName]').val(),
     eventLocation:jQuery('[name=eventLocation]').val(),
@@ -48,5 +47,6 @@ jQuery('#addEvent-form').on('submit', function(e) {
   }, function(message) {
     console.log('Event Added');
     alert("Event Added!!")
+    location.reload();
   })
 })
