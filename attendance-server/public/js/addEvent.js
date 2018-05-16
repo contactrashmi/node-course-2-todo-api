@@ -10,19 +10,22 @@ socket.on('connect', function () {
 
     eventData.forEach((event) => {
 
-      console.log(event);
        var template = jQuery('#table-template').html();
 
        //var dateStart = event.eventScheduleStart.toString("hh:mm tt")
        //console.log(dateStart);
+       //var dateString = (new Date(event.eventScheduleStart))
 
+      //console.log(dateString.toLocaleString('en-US', {year: '2-digit', month:'2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit', hour12: true }))
        var html = Mustache.render(template, {
+
+
          eventID:event.eventID,
          eventName:event.eventName,
          eventLocation:event.eventLocation,
          eventVenue:event.eventVenue,
-         eventScheduleStart: event.eventScheduleStart,
-         eventScheduleEnd:event.eventScheduleEnd
+         eventScheduleStart: (new Date(event.eventScheduleStart)).toLocaleString('en-US', {year: '2-digit', month:'2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit', hour12: true }),
+         eventScheduleEnd:(new Date(event.eventScheduleEnd)).toLocaleString('en-US', {year: '2-digit', month:'2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit', hour12: true })
        });
 
        jQuery('#eventTable').append(html);
@@ -57,13 +60,17 @@ jQuery('#addEvent-form').on('submit', function(e) {
     eventScheduleStart: jQuery('[name=eventScheduleStart]').val(),
     eventScheduleEnd: jQuery('[name=eventScheduleEnd]').val()
   }, function(message) {
-    console.log('Event Added');
-    alert("Event Added!!")
-    location.reload();
+
+    if(message.status === 400) {
+      alert(message.message)
+    } else {
+      alert("Event Added!!")
+      location.reload();
+    }
   })
 })
 
-jQuery('table-template').on('click', function(e) {
+jQuery('table-template').on('submit', function(e) {
    console.log('click event capturted');
 })
 

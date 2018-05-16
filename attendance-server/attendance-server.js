@@ -134,12 +134,29 @@ var addEventInDB = ((createEvent, localEvetID, callback) => {
 
      event.save().then((doc) => {
        console.log(doc);
-     callback(doc)
+
+       callback({
+         status: 200,
+         message: "Data Added"
+       })
    }, (err) => {
-     callback({
-       status: 400,
-       errorMessage: err
-     })
+
+     var errorString;
+
+    //  if (err.name == 'ValidationError') {
+    //     for (field in err.errors) {
+    //         console.log(err.errors[field].message);
+    //     }
+    // }
+     if(err.name === 'ValidationError') {
+       errorString = "Please enter mandatory field(s)"
+     } else {
+       errorString = "Error adding data"
+     }
+       callback({
+         status: 400,
+         message: errorString
+       })
    })
 })
 
