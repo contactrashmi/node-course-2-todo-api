@@ -126,7 +126,10 @@ var addEventInDB = ((createEvent, localEvetID, callback) => {
       eventID: localEvetID,
       eventName: createEvent.eventName,
       eventLocation: createEvent.eventLocation,
-      eventSchedule: createEvent.eventSchedule
+      eventVenue: createEvent.eventVenue,
+      eventScheduleStart: createEvent.eventScheduleStart,
+      eventScheduleEnd: createEvent.eventScheduleEnd,
+
     })
 
      event.save().then((doc) => {

@@ -9,15 +9,28 @@ var Event = mongoose.model('Events', {
     type: String,
     required: true, //text value is must
     minlength: 1, // fail when text is empty
-    trim: true //remove any leading or trailing spaces
+    trim: true, //remove any leading or trailing spaces
+    required: true,
   },
   eventLocation: {
     type: String,
     trim: true, //remove any leading or trailing spaces
-    default: 'Chandigarh'
+    default: 'Chandigarh',
+    required: true,
   },
-  eventSchedule: {
-    type: Date
+  eventVenue: {
+    type: String,
+    trim: true, //remove any leading or trailing spaces
+    default: 'Chandigarh',
+    required: true,
+  },
+  eventScheduleStart: {
+    type: Date,
+    required: true,
+  },
+  eventScheduleEnd: {
+    type: Date,
+    required: true,
   }
 })
 
