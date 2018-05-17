@@ -83,7 +83,10 @@ app.post('/postEvent', (req, res) => {
    eventID: req.body.eventID,
    eventName: req.body.eventName,
    eventLocation: req.body.eventLocation,
-   eventSchedule: req.body.eventSchedule
+   eventSchedule: req.body.eventSchedule,
+   eventScheduleStart: req.body.eventScheduleStart,
+   eventScheduleEnd: req.body.eventScheduleEnd,
+   empID: req.body.empID
  })
 
  event.save().then((doc) => {
