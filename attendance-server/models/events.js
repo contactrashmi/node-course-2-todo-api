@@ -31,7 +31,25 @@ var Event = mongoose.model('Events', {
   eventScheduleEnd: {
     type: Date,
     required: true,
+  },
+  empID: {
+    type: String,
+    trim: true, //remove any leading or trailing spaces
+    default: '120381',
+    required: true,
+  },
+  primaryScanMethod: {
+    type: String,
+    trim: true, //remove any leading or trailing spaces
+    default: 'QR',
+    required: true,
+  },
+  secondaryScanMethod: {
+    type: String,
+    default: 'OCR, TEXT',
+    required: true,
   }
+
 })
 
 module.exports = {Event}

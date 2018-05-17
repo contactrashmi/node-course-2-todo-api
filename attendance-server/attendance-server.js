@@ -94,7 +94,7 @@ app.post('/postEvent', (req, res) => {
 })
 
 app.get('/getEvents', (req, res) => {
-  Event.find().then((events) => {
+  Event.find({empID:req.param('empID')}).then((events) => {
     res.send({events})
   },  (err) => {
     res.status(400).send(err)
