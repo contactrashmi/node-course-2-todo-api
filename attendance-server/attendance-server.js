@@ -38,6 +38,41 @@ io.on('connection', (socket) => {
     })
   })
 
+  socket.on('updateEditForm',(event, callback) => {
+    Event.find(event).then((events) => {
+      callback(events)
+    })
+   }, (err) => {
+    callback({
+      status: 400,
+      errorMessage: err
+    })
+  })
+
+  socket.on('updateEvent', (createEvent, callback) => {
+    console.log('Event updated by client:', createEvent);
+
+       var event = {}
+        event.eventID = createEvent.eventID,
+        event.eventName = createEvent.eventName,
+        event.eventLocation = createEvent.eventLocation,
+        event.eventVenue = createEvent.eventVenue,
+        event.eventScheduleStart = createEvent.eventScheduleStart,
+        event.eventScheduleEnd = createEvent.eventScheduleEnd,
+
+  Event.findOneAndUpdate({eventID: createEvent.eventID}, {$set:event}, {new: true}).then((doc) => {
+      console.log(doc);
+  }, (err) =>{
+            console.log(err);
+              console.log("Something wrong when updating data!");
+          })
+
+
+      
+
+
+  });
+
   socket.on('addEvent', (createEvent, callback) => {
     console.log('Event added by client:', createEvent);
 
