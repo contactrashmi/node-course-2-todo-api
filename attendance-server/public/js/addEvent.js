@@ -12,14 +12,7 @@ socket.on('connect', function () {
 
        var template = jQuery('#table-template').html();
 
-       //var dateStart = event.eventScheduleStart.toString("hh:mm tt")
-       //console.log(dateStart);
-       //var dateString = (new Date(event.eventScheduleStart))
-
-      //console.log(dateString.toLocaleString('en-US', {year: '2-digit', month:'2-digit', day: '2-digit', hour: '2-digit', minute:'2-digit', hour12: true }))
        var html = Mustache.render(template, {
-
-
          eventID:event.eventID,
          eventName:event.eventName,
          eventLocation:event.eventLocation,
@@ -70,10 +63,13 @@ jQuery('#addEvent-form').on('submit', function(e) {
   })
 })
 
-jQuery('table-template').on('submit', function(e) {
+
+jQuery('#editEvent-form').on('click', function(e) {
    console.log('click event capturted');
 })
 
-jQuery('editEvent-form').on('click', function(e) {
-   console.log('click event capturted');
+$('.navigateTest').click(function () {
+    //alert("test called");
+    var serviceID = $(this).attr('id');
+    alert("serviceID :: " + serviceID);
 })

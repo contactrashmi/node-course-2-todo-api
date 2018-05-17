@@ -57,12 +57,13 @@
                   <script id="table-template" type="text/template">
                      <tbody>
                      <tr class= "panel">
-                           <td><a href="#" onclick="getJS(this)"><span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#eventModal"></span></a>
-                           <td>{{eventName}}</td>
-                           <td>{{eventLocation}}</td>
-                           <td>{{eventVenue}}</td>
-                           <td>{{eventScheduleStart}}</td>
-                           <td>{{eventScheduleEnd}}</td>
+                           <td><button>edit</button></td>
+                           <!--<td id="editBtn"><a href="#" onclick="getJS()"><span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#eventModal"></span></a>-->
+                           <td id="eventName">{{eventName}}</td>
+                           <td id="eventLocation">{{eventLocation}}</td>
+                           <td class="navigateTest">{{eventVenue}}</td>
+                           <td class="navigateTest">{{eventScheduleStart}}</td>
+                           <td class="navigateTest">{{eventScheduleEnd}}</td>
                      </tr>
                            </tbody>
                          </script>
@@ -248,15 +249,25 @@ function myFunction() {
     }
 }
 
-function getJS(id) {
-  console.log(this.eventName)
+
+function getJS() {
+  console.log('Hello');
+  helloWorld()
 }
+
+$('td').click(function(e) {
+    var txt = $(e.target).text();
+    console.log(txt);
+ });
 
 $(function() {
   //Disable past dates
    $('#dp1').datetimepicker({
       minDate: moment().add(2)
   });
+  $('#table-template tr').click(function(){
+    $(this).find("td").eq(1).html()
+});
     //Disable past dates
    $('#dp2').datetimepicker({
       minDate: moment().add(2)
