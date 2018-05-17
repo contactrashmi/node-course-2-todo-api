@@ -41,12 +41,14 @@ var Event = mongoose.model('Events', {
   primaryScanMethod: {
     type: String,
     trim: true, //remove any leading or trailing spaces
-    default: 'QR',
+    //default: 'QR',
+    default: 'OCR',
     required: true,
   },
   secondaryScanMethod: {
     type: String,
-    default: 'OCR, TEXT',
+    default: ' ',
+    //default: 'OCR, TEXT',
     required: true,
   }
 
